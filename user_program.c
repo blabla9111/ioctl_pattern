@@ -25,7 +25,7 @@ int main(){
     char str[30];
     char buf[256];
     printf("\n IOCTL based Character device operation from user space...\n");
-    fd = open("/dev/chr_device",O_RDWR);
+    fd = open("/dev/my_device",O_RDWR);
 
     if(fd<0){
         printf("Sorry, I can't open the device file...\n\n");
