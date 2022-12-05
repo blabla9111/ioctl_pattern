@@ -5,7 +5,7 @@ all:
 
 
 test:
-		gcc test.c -o ioctl_driver
+		gcc user_program.c -o ioctl_driver
 		sudo ./ioctl_driver
 
 create_dev:

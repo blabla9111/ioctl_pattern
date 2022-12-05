@@ -4,8 +4,8 @@
 
 #include "user_program.h"
 
-#define WR_DATA_NET_DEVICE _IOW('a','a',int32_t*)
-#define WR_DATA_DM_IO_MEMORY _IOW('a','c',int32_t*)
+#define WR_DATA_TASK_STRUCT _IOW('a','a',int32_t*)
+#define WR_DATA_VFSMOUNT _IOW('a','c',int32_t*)
 #define RD_DATA _IOR('a','b',int32_t*)
 
 void take_data_from_user(char str[30], int32_t *pid){
@@ -20,8 +20,8 @@ void take_data_from_user(char str[30], int32_t *pid){
 int main(){
     int fd;
     int32_t num;
-    char net_device[] = "net_device";// your struct name
-    char dm_io_memory[] = "dm_io_memory";// your struct name
+    char task_struct[] = "task_struct";// your struct name
+    char vfsmount[] = "vfsmount";// your struct name
     char str[30];
     char buf[256];
     printf("\n IOCTL based Character device operation from user space...\n");
@@ -33,11 +33,11 @@ int main(){
     }
     take_data_from_user(str,&num);
     printf("Writing value to the driver...\n\n");
-    if(strcmp((char *)&net_device,str)==0) {
-        ioctl(fd, WR_DATA_NET_DEVICE, (int32_t * ) & num);
+    if(strcmp((char *)&task_struct,str)==0) {
+        ioctl(fd, WR_DATA_TASK_STRUCT, (int32_t * ) & num);
     }
-    else if (strcmp((char *)&dm_io_memory,str)==0){
-        ioctl(fd,WR_DATA_DM_IO_MEMORY,(int32_t*)&num);
+    else if (strcmp((char *)&vfsmount,str)==0){
+        ioctl(fd,WR_DATA_VFSMOUNT,(int32_t*)&num);
     }
     else{
         printf("I don't know a struct %s\n\n", str);
