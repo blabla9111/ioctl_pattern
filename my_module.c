@@ -33,14 +33,14 @@ static int mychrdev_open(struct inode *inode, struct file *file){
     static int counter = 0;
     char *kbuf = kmalloc(KBUF_SIZE,GFP_KERNEL); // new buffer for all opening file
     if(!kbuf){
-        printk(KERN_INFO "Can't allocate memory to kbuf!!!");
+        printk(KERN_INFO "Can't allocate memory to kbuf");
         return -1;
     }
     file->private_data = kbuf; // to save addr of buffer
     printk(KERN_INFO "Open device %s \n\n",MYDEV_NAME);
     counter++;
-    printk(KERN_INFO "Counter  = %d\n",counter);
-    printk(KERN_INFO "Module refcounter  = %d\n",module_refcount(THIS_MODULE));
+    printk(KERN_INFO "Counter = %d\n",counter);
+    printk(KERN_INFO "Module refcounter = %d\n",module_refcount(THIS_MODULE));
     return 0;
 }
 
