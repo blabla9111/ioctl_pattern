@@ -1,6 +1,4 @@
-//
-// Created by dinar on 04.12.2022.
-//
+
 #include <linux/module.h> // to support modules
 #include <linux/kernel.h>
 #include <linux/fs.h> // functions on file systems
@@ -25,7 +23,7 @@ static dev_t first;// identification of first device
 static unsigned int count = 1;
 static int my_major = 700; // symbol device
 static int my_minor = 0; // one type of device
-static struct cdev *my_cdev;// include all oper-on which we can do with dev
+static struct cdev *my_cdev; // include all oper-on which we can do with dev
 
 #define MYDEV_NAME "my_device"
 #define KBUF_SIZE (size_t) ((10)*PAGE_SIZE)
@@ -127,8 +125,8 @@ static int __init init_chrdev(void){
     if (ret != 0 ) {
         printk(KERN_INFO "mutex is locked\n");
     }
-    printk(KERN_INFO "I am loaded");// sys log, KERN_INFO TYPE OF MSG
-    first = MKDEV(my_major, my_minor);// init node to work with dev
+    printk(KERN_INFO "I am loaded"); // sys log, KERN_INFO TYPE OF MSG
+    first = MKDEV(my_major, my_minor); // init node to work with dev
     register_chrdev_region(first, count, MYDEV_NAME);// to reg region for dev examples
     my_cdev =  cdev_alloc(); // map memory for struct cdev
     cdev_init(my_cdev, &my_cdev_fops); // init fops
@@ -153,4 +151,4 @@ static void __exit cleanup_chrdev(void){
 module_init(init_chrdev);
 module_exit(cleanup_chrdev);
 
-MODULE_LICENSE("GPL");//
+MODULE_LICENSE("GPL");
