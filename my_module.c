@@ -30,6 +30,7 @@ static struct cdev *my_cdev; // include all oper-on which we can do with dev
 
 
 static int mychrdev_open(struct inode *inode, struct file *file){
+
     static int counter = 0;
     char *kbuf = kmalloc(KBUF_SIZE,GFP_KERNEL); // new buffer for all opening file
     if(!kbuf){
